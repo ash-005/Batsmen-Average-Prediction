@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batsmen Average Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"], button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+
+        .prediction-result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .prediction-result h2 {
+            color: #333;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Batsmen Average Prediction</h1>
+        <form action="/predict" method="post" id="predictionForm">
+            <label for="matches_played">Matches Played:</label>
+            <input type="number" id="matches_played" name="Mat" required>
+            
+            <label for="not_outs">Not Outs:</label>
+            <input type="number" id="not_outs" name="NO" required>
+            
+            <label for="runs_scored">Runs Scored:</label>
+            <input type="number" id="runs_scored" name="Runs" required>
+            
+            <label for="balls_faced">Balls Faced:</label>
+            <input type="number" id="balls_faced" name="BF" required>
+            
+            <label for="strike_rate">Strike Rate:</label>
+            <input type="number" id="strike_rate" name="SR" step="0.01" required>
+            
+            <label for="highest_score">Highest Score:</label>
+            <input type="number" id="highest_score" name="HS" required>
+            
+            <label for="centuries">Centuries:</label>
+            <input type="number" id="centuries" name="100s" required>
+            
+            <label for="fifties">Fifties:</label>
+            <input type="number" id="fifties" name="50s" required>
+            
+            <input type="submit" value="Predict">
+            <button type="button" onclick="clearLastEntry()">Clear Last Entry</button>
+        </form>
+        
+        <div class="prediction-result" id="predictionResult" style="display: none;">
+            <h2>Predicted Average: <span id="predictedAverage"></span></h2>
+        </div>
+    </div>
+
+    <script>
+        function clearLastEntry() {
+            var form = document.getElementById('predictionForm');
+            var inputs = form.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type !== 'submit') {
+                    inputs[i].value = '';
+                }
+            }
+        }
+
+        function submitForm() {
+            var form = document.getElementById('predictionForm');
+            var formData = new FormData(form);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('predictedAverage').textContent = data;
+                document.getElementById('predictionResult').style.display = 'block';
+                clearLastEntry();
+            })
+            .catch(error => console.error('Error:', error));
+
+            return false;
+        }
+    </script>
+</body>
+</html>
