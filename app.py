@@ -5,7 +5,7 @@ import joblib
 app = Flask(__name__)
 
 # Load the saved Linear Regression model
-model = joblib.load(r'linear_regression_average_predictor1.pkl')
+model = joblib.load(r'C:\Users\HP\OneDrive\Desktop\python\espn\linear_regression_average_predictor.pkl')
 
 
 @app.route('/')
