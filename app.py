@@ -28,7 +28,7 @@ def predict():
 
         # Create a DataFrame with user input values
         user_data = pd.DataFrame([[Mat, NO, Runs, BF, SR, HS, Centuries, Fifties]], columns=[
-                                 'Mat', 'NO', 'Runs', 'BF', 'SR', 'HS', '100s', '50s'])
+                                 'Mat', 'NO', 'Runs', 'BF', 'SR', 'HS', '100', '50'])
 
         # Make prediction using the loaded model
         user_prediction = model.predict(user_data)
