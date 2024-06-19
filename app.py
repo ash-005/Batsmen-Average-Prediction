@@ -23,8 +23,8 @@ def predict():
         BF = int(request.form['BF'])
         SR = float(request.form['SR'])
         HS = int(request.form['HS'])
-        Centuries = int(request.form['100s'])
-        Fifties = int(request.form['50s'])
+        Centuries = int(request.form['100'])
+        Fifties = int(request.form['50'])
 
         # Create a DataFrame with user input values
         user_data = pd.DataFrame([[Mat, NO, Runs, BF, SR, HS, Centuries, Fifties]], columns=[
